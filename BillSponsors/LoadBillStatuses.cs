@@ -11,6 +11,13 @@ namespace BillSponsors
 {
     class LoadBillStatuses
     {
+        /// <summary>
+        /// Iterate across all files matching pattern in specified path and produce a collection 
+        /// of billStatus objects.
+        /// </summary>
+        /// <param name="path">Path to directory caontaining XML files</param>
+        /// <param name="searchPattern">Search pattern for file names in the path</param>
+        /// <returns></returns>
         public static IEnumerable<billStatus> GetBillStatuses(string path, string searchPattern)
         {
             var rollCalls = new List<billStatus>();
@@ -38,6 +45,12 @@ namespace BillSponsors
             return rollCalls;
         }
 
+        /// <summary>
+        /// The DeSerialize process was failing when the dublinCore XML data was left in the file.
+        /// The data contained in that node was not required for this analysis.
+        /// </summary>
+        /// <param name="text">XML text</param>
+        /// <returns></returns>
         private static string RemoveProblematicXml(string text)
         {
             var pre = text.IndexOf("dubliCore");
